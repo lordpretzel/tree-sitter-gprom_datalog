@@ -31,14 +31,26 @@ module.exports = grammar({
 					   $._DOT),
 
 		_body_atom: $ => choice(
-			$.rel_atom
+			$.rel_atom,
+			$.comparison_atom
 		),
 		
 		rel_atom: $ => seq(
 			$.predicate_name,
-			"(",
-			field("arg", commaSep($._expr)),
-			")"),
+			$.rel_atom_args
+		),
+
+		rel_atom_args: $ => seq(
+ 			"(",
+			commaSep($._expr),
+			")" 
+		),
+		
+		comparison_atom: $ => seq(
+			field("left_op", choice($.variable, $.constant)),
+			field("comparison_operator", choice('==', '!=', '<', '<=', '>', '>=')),
+			field("right_op", choice($.variable, $.constant)),
+		),
 		
 		fd: $ => seq(
 			"FD",
@@ -85,8 +97,12 @@ module.exports = grammar({
 				$.agg_function,
 				$.function_name
 			)),
+			$.function_args
+		),
+
+		function_args: $ => seq(
 			"(",
-			field("arg", commaSep($._expr)),
+			commaSep($._expr),
 			")"
 		),
 
