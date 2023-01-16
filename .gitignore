@@ -1,0 +1,6 @@
+/tree-sitter-gprom_datalog.wasm
+/node_modules/
+/binding.gyp
+/bindings/
+/Cargo.toml
+/src/

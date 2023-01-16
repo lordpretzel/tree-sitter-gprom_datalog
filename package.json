@@ -1,7 +1,7 @@
 {
-  "name": "tree-sitter-dummy",
+  "name": "tree-sitter-gprom_datalog",
   "version": "1.0.0",
-  "description": "Tree-sitter grammar for dummy",
+  "description": "Tree-sitter grammar for gprom_datalog",
   "scripts": {
     "test": "tree-sitter test"
   },
@@ -9,5 +9,9 @@
     "parsing"
   ],
   "author": "Boris Glavic",
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.7"
+  },
+  "main": "bindings/node"
 }
