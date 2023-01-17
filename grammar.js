@@ -24,9 +24,9 @@ module.exports = grammar({
 		fact: $ => seq(
 			$.rel_atom,
 			$._DOT),
-		
+
 		rule: $ => seq(field("head",$.rel_atom),
-					   $._IMPL,
+					   $.IMPL,
 					   field("body", commaSep($._body_atom)),
 					   $._DOT),
 
@@ -34,7 +34,7 @@ module.exports = grammar({
 			$.rel_atom,
 			$.comparison_atom
 		),
-		
+
 		rel_atom: $ => seq(
 			$.predicate_name,
 			$.rel_atom_args
@@ -43,15 +43,15 @@ module.exports = grammar({
 		rel_atom_args: $ => seq(
  			"(",
 			commaSep($._expr),
-			")" 
+			")"
 		),
-		
+
 		comparison_atom: $ => seq(
 			field("left_op", choice($.variable, $.constant)),
 			field("comparison_operator", choice('==', '!=', '<', '<=', '>', '>=')),
 			field("right_op", choice($.variable, $.constant)),
 		),
-		
+
 		fd: $ => seq(
 			"FD",
 			$.predicate_name,
@@ -63,19 +63,23 @@ module.exports = grammar({
 		),
 
 		attribute: $ => $._IDENTIFIER,
-				
+
 		lineage: $ => seq(
 			"LINEAGE",
 			optional(
 				seq(
-					seq("FOR", field("target",$.predicate_name)),
-					optional(
-						seq("FOR", "RESULTS", "FROM", field("result_table",$.predicate_name))
-					)
+					$.lineage_target_table,
+					optional($.lineage_result_table)
 				)
 			),
 			$._DOT
 		),
+
+		lineage_target_table: $ => seq("FOR", field("target",$.predicate_name)),
+
+		lineage_result_table: $ => seq(
+			"FOR", "RESULTS", "FROM", field("result_table",$.predicate_name)
+		   ),
 
 		answer_predicate: $ => seq(
 			"ANS",
@@ -83,14 +87,14 @@ module.exports = grammar({
 			$.predicate_name,
 			$._DOT
 		),
-		
+
 		_expr: $ => choice(
 			prec.left(PREC.function,$.function_call),
 			$.variable,
 			$.binary_expr,
 			$.constant,
 			seq('(', $._expr, ')')
-		), 		
+		),
 
 		function_call: $ => seq(
 			field("name", choice(
@@ -112,11 +116,11 @@ module.exports = grammar({
 		),
 
 		agg_function: $ => choice("sum","avg","count","min","max"),
-		
+
 		predicate_name: $ => $._IDENTIFIER,
-		
+
 		variable: $ => $._IDENTIFIER,
-		
+
 		binary_expr: $ => {
 			const table = [
 				[PREC.concat, '||'],
@@ -142,11 +146,11 @@ module.exports = grammar({
 			seq(optional("-"), optional($._INTEGER), '.', $._INTEGER)
 		),
 
-		STRING: $ => /[\'][^\']*[\']/, 
-		
+		STRING: $ => /[\'][^\']*[\']/,
+
 		_INTEGER: $ => /[0-9]+/,
-		
-		_IMPL: $ => ":-",
+
+		IMPL: $ => ":-",
 
 		_DOT: $ => /[.]/,
 

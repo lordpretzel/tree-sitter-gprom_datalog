@@ -59,7 +59,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_IMPL"
+          "name": "IMPL"
         },
         {
           "type": "FIELD",
@@ -365,49 +365,15 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "FOR"
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "target",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "predicate_name"
-                      }
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "lineage_target_table"
                 },
                 {
                   "type": "CHOICE",
                   "members": [
                     {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "FOR"
-                        },
-                        {
-                          "type": "STRING",
-                          "value": "RESULTS"
-                        },
-                        {
-                          "type": "STRING",
-                          "value": "FROM"
-                        },
-                        {
-                          "type": "FIELD",
-                          "name": "result_table",
-                          "content": {
-                            "type": "SYMBOL",
-                            "name": "predicate_name"
-                          }
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "lineage_result_table"
                     },
                     {
                       "type": "BLANK"
@@ -424,6 +390,48 @@
         {
           "type": "SYMBOL",
           "name": "_DOT"
+        }
+      ]
+    },
+    "lineage_target_table": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FOR"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "predicate_name"
+          }
+        }
+      ]
+    },
+    "lineage_result_table": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FOR"
+        },
+        {
+          "type": "STRING",
+          "value": "RESULTS"
+        },
+        {
+          "type": "STRING",
+          "value": "FROM"
+        },
+        {
+          "type": "FIELD",
+          "name": "result_table",
+          "content": {
+            "type": "SYMBOL",
+            "name": "predicate_name"
+          }
         }
       ]
     },
@@ -884,7 +892,7 @@
       "type": "PATTERN",
       "value": "[0-9]+"
     },
-    "_IMPL": {
+    "IMPL": {
       "type": "STRING",
       "value": ":-"
     },

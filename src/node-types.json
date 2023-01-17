@@ -366,20 +366,45 @@
   {
     "type": "lineage",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "lineage_result_table",
+          "named": true
+        },
+        {
+          "type": "lineage_target_table",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lineage_result_table",
+    "named": true,
     "fields": {
       "result_table": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "predicate_name",
             "named": true
           }
         ]
-      },
+      }
+    }
+  },
+  {
+    "type": "lineage_target_table",
+    "named": true,
+    "fields": {
       "target": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "predicate_name",
@@ -472,6 +497,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "IMPL",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -593,6 +628,10 @@
   {
     "type": "FROM",
     "named": false
+  },
+  {
+    "type": "IMPL",
+    "named": true
   },
   {
     "type": "LINEAGE",
