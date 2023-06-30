@@ -14,9 +14,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "DOT",
+          "named": true
+        },
         {
           "type": "predicate_name",
           "named": true
@@ -47,6 +51,10 @@
           },
           {
             "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "case_expr",
             "named": true
           },
           {
@@ -100,7 +108,7 @@
             "named": false
           },
           {
-            "type": "==",
+            "type": "=",
             "named": false
           },
           {
@@ -134,6 +142,10 @@
             "named": true
           },
           {
+            "type": "case_expr",
+            "named": true
+          },
+          {
             "type": "constant",
             "named": true
           },
@@ -147,6 +159,60 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comparison_atom",
+          "named": true
+        },
+        {
+          "type": "rel_atom",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "case_expr",
+          "named": true
+        },
+        {
+          "type": "constant",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        },
+        {
+          "type": "when_clause",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -170,7 +236,7 @@
             "named": false
           },
           {
-            "type": "==",
+            "type": "=",
             "named": false
           },
           {
@@ -237,9 +303,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "DOT",
+          "named": true
+        },
         {
           "type": "rel_atom",
           "named": true
@@ -281,9 +351,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "DOT",
+          "named": true
+        },
         {
           "type": "predicate_name",
           "named": true
@@ -301,6 +375,10 @@
       "types": [
         {
           "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "case_expr",
           "named": true
         },
         {
@@ -369,8 +447,12 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "DOT",
+          "named": true
+        },
         {
           "type": "lineage_result_table",
           "named": true
@@ -451,6 +533,10 @@
           "named": true
         },
         {
+          "type": "case_expr",
+          "named": true
+        },
+        {
           "type": "constant",
           "named": true
         },
@@ -470,19 +556,11 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
-        "required": false,
+        "multiple": false,
+        "required": true,
         "types": [
           {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "comparison_atom",
-            "named": true
-          },
-          {
-            "type": "rel_atom",
+            "type": "body",
             "named": true
           }
         ]
@@ -499,9 +577,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "DOT",
+          "named": true
+        },
         {
           "type": "IMPL",
           "named": true
@@ -544,6 +626,37 @@
     "type": "variable",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "when_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "case_expr",
+          "named": true
+        },
+        {
+          "type": "constant",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "!=",
@@ -602,7 +715,7 @@
     "named": false
   },
   {
-    "type": "==",
+    "type": "=",
     "named": false
   },
   {
@@ -615,6 +728,22 @@
   },
   {
     "type": "ANS",
+    "named": false
+  },
+  {
+    "type": "CASE",
+    "named": false
+  },
+  {
+    "type": "DOT",
+    "named": true
+  },
+  {
+    "type": "ELSE",
+    "named": false
+  },
+  {
+    "type": "END",
     "named": false
   },
   {
@@ -644,6 +773,14 @@
   {
     "type": "STRING",
     "named": true
+  },
+  {
+    "type": "THEN",
+    "named": false
+  },
+  {
+    "type": "WHEN",
+    "named": false
   },
   {
     "type": "avg",

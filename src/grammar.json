@@ -42,7 +42,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_DOT"
+          "name": "DOT"
         }
       ]
     },
@@ -65,42 +65,38 @@
           "type": "FIELD",
           "name": "body",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_body_atom"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": ","
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_body_atom"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "body"
           }
         },
         {
           "type": "SYMBOL",
-          "name": "_DOT"
+          "name": "DOT"
+        }
+      ]
+    },
+    "body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_body_atom"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_body_atom"
+              }
+            ]
+          }
         }
       ]
     },
@@ -204,7 +200,7 @@
             "members": [
               {
                 "type": "STRING",
-                "value": "=="
+                "value": "="
               },
               {
                 "type": "STRING",
@@ -343,7 +339,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_DOT"
+          "name": "DOT"
         }
       ]
     },
@@ -389,7 +385,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_DOT"
+          "name": "DOT"
         }
       ]
     },
@@ -452,7 +448,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_DOT"
+          "name": "DOT"
         }
       ]
     },
@@ -480,6 +476,10 @@
           "name": "constant"
         },
         {
+          "type": "SYMBOL",
+          "name": "case_expr"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -495,6 +495,68 @@
               "value": ")"
             }
           ]
+        }
+      ]
+    },
+    "case_expr": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CASE"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "when_clause"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "ELSE"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expr"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "END"
+        }
+      ]
+    },
+    "when_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "WHEN"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expr"
+        },
+        {
+          "type": "STRING",
+          "value": "THEN"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expr"
         }
       ]
     },
@@ -682,7 +744,7 @@
                   "members": [
                     {
                       "type": "STRING",
-                      "value": "=="
+                      "value": "="
                     },
                     {
                       "type": "STRING",
@@ -896,7 +958,7 @@
       "type": "STRING",
       "value": ":-"
     },
-    "_DOT": {
+    "DOT": {
       "type": "PATTERN",
       "value": "[.]"
     },

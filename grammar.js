@@ -3,7 +3,8 @@ const PREC = {
 	multiplicative: 4,
 	additive: 3,
 	concat: 2,
-	function: 5
+	function: 5,
+	case: 6
 }
 
 module.exports = grammar({
@@ -23,12 +24,14 @@ module.exports = grammar({
 
 		fact: $ => seq(
 			$.rel_atom,
-			$._DOT),
+			$.DOT),
 
 		rule: $ => seq(field("head",$.rel_atom),
 					   $.IMPL,
-					   field("body", commaSep($._body_atom)),
-					   $._DOT),
+					   field("body", $.body),
+					   $.DOT),
+
+        body: $ => commaSep1($._body_atom),
 
 		_body_atom: $ => choice(
 			$.rel_atom,
@@ -48,7 +51,7 @@ module.exports = grammar({
 
 		comparison_atom: $ => seq(
 			field("left_op", choice($.variable, $.constant)),
-			field("comparison_operator", choice('==', '!=', '<', '<=', '>', '>=')),
+			field("comparison_operator", choice('=', '!=', '<', '<=', '>', '>=')),
 			field("right_op", choice($.variable, $.constant)),
 		),
 
@@ -59,7 +62,7 @@ module.exports = grammar({
 			field("LHS", commaSep($.attribute)),
 			"->",
 			field("RHS", commaSep($.attribute)),
-			$._DOT
+			$.DOT
 		),
 
 		attribute: $ => $._IDENTIFIER,
@@ -72,7 +75,7 @@ module.exports = grammar({
 					optional($.lineage_result_table)
 				)
 			),
-			$._DOT
+			$.DOT
 		),
 
 		lineage_target_table: $ => seq("FOR", field("target",$.predicate_name)),
@@ -85,7 +88,7 @@ module.exports = grammar({
 			"ANS",
 			":",
 			$.predicate_name,
-			$._DOT
+			$.DOT
 		),
 
 		_expr: $ => choice(
@@ -93,8 +96,23 @@ module.exports = grammar({
 			$.variable,
 			$.binary_expr,
 			$.constant,
+            $.case_expr,
 			seq('(', $._expr, ')')
 		),
+
+        case_expr: $ => seq(
+            "CASE",
+            repeat($.when_clause),
+            optional(seq("ELSE", $._expr)),
+            "END"
+        ),
+
+        when_clause: $ => seq(
+            "WHEN",
+            $._expr,
+            "THEN",
+            $._expr
+        ),
 
 		function_call: $ => seq(
 			field("name", choice(
@@ -124,7 +142,7 @@ module.exports = grammar({
 		binary_expr: $ => {
 			const table = [
 				[PREC.concat, '||'],
-				[PREC.comparative, choice('==', '!=', '<', '<=', '>', '>=')],
+				[PREC.comparative, choice('=', '!=', '<', '<=', '>', '>=')],
 				[PREC.additive, choice('+', '-')],
 				[PREC.multiplicative, choice('*', '/', '%')],
 			];
@@ -152,7 +170,7 @@ module.exports = grammar({
 
 		IMPL: $ => ":-",
 
-		_DOT: $ => /[.]/,
+		DOT: $ => /[.]/,
 
 		_IDENTIFIER: $ => /[a-zA-Z_][a-zA-Z_0-9]*/
 	}

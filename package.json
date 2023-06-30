@@ -11,7 +11,7 @@
   "author": "Boris Glavic",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.7"
+    "tree-sitter-cli": "^0.20.8"
   },
   "main": "bindings/node"
 }
