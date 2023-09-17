@@ -159,18 +159,20 @@ module.exports = grammar({
 			$.STRING
 		),
 
+		IMPL: $ => ":-",
+
+		FLOAT: $ => /[-]?[0-9]+[.][0-9]+/,
+
+		DOT: $ => /[.]/,
+
+		INTEGER: $ => /[-]?[0-9]+/,
+
 		NUMBER: $ => choice(
-			seq(optional("-"), $._INTEGER),
-			seq(optional("-"), optional($._INTEGER), '.', $._INTEGER)
+			$.INTEGER,
+			prec(10,$.FLOAT)
 		),
 
 		STRING: $ => /[\'][^\']*[\']/,
-
-		_INTEGER: $ => /[0-9]+/,
-
-		IMPL: $ => ":-",
-
-		DOT: $ => /[.]/,
 
 		_IDENTIFIER: $ => /[a-zA-Z_][a-zA-Z_0-9]*/
 	}

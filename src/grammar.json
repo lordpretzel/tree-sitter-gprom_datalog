@@ -883,84 +883,42 @@
         }
       ]
     },
+    "IMPL": {
+      "type": "STRING",
+      "value": ":-"
+    },
+    "FLOAT": {
+      "type": "PATTERN",
+      "value": "[-]?[0-9]+[.][0-9]+"
+    },
+    "DOT": {
+      "type": "PATTERN",
+      "value": "[.]"
+    },
+    "INTEGER": {
+      "type": "PATTERN",
+      "value": "[-]?[0-9]+"
+    },
     "NUMBER": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "-"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_INTEGER"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "INTEGER"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "-"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_INTEGER"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": "."
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_INTEGER"
-            }
-          ]
+          "type": "PREC",
+          "value": 10,
+          "content": {
+            "type": "SYMBOL",
+            "name": "FLOAT"
+          }
         }
       ]
     },
     "STRING": {
       "type": "PATTERN",
       "value": "[\\'][^\\']*[\\']"
-    },
-    "_INTEGER": {
-      "type": "PATTERN",
-      "value": "[0-9]+"
-    },
-    "IMPL": {
-      "type": "STRING",
-      "value": ":-"
-    },
-    "DOT": {
-      "type": "PATTERN",
-      "value": "[.]"
     },
     "_IDENTIFIER": {
       "type": "PATTERN",
