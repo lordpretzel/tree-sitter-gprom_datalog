@@ -1,0 +1,170 @@
+==================
+Fact
+==================
+
+Q(1,2,'a').
+
+---
+
+(source_file
+ (fact
+  (rel_atom (predicate_name)
+   (rel_atom_args
+    (constant (NUMBER (INTEGER)))
+    (constant (NUMBER (INTEGER)))
+    (constant (STRING))))
+   (DOT)))
+
+
+==================
+SimpleRule
+==================
+
+Q(X) :- R(X,Y).
+
+---
+
+(source_file
+  (rule
+    head: (rel_atom (predicate_name)
+             (rel_atom_args (variable)))
+    (IMPL)
+    body: (body
+             (rel_atom (predicate_name)
+               (rel_atom_args (variable) (variable))))
+    (DOT)))
+
+==================
+JoinRule
+==================
+
+Q(X) :- R(X,Y), S(Y,Z).
+
+---
+
+(source_file
+  (rule
+    head: (rel_atom (predicate_name)
+             (rel_atom_args (variable)))
+    (IMPL)
+    body: (body
+             (rel_atom (predicate_name)
+                (rel_atom_args (variable) (variable)))
+             (rel_atom (predicate_name)
+                (rel_atom_args (variable) (variable))))
+    (DOT)))
+
+==================
+RuleWithHeadExpr
+==================
+
+Q((X + Y + 3) / 3 + f(1,2)) :- R(X,Y).
+
+---
+
+(source_file
+  (rule
+    head: (rel_atom
+      (predicate_name)
+      (rel_atom_args
+        (binary_expr
+          left: (binary_expr
+            left: (binary_expr
+              left: (binary_expr
+                left: (variable)
+                right: (variable))
+              right: (constant
+                (NUMBER (INTEGER))))
+            right: (constant
+              (NUMBER (INTEGER))))
+          right: (function_call
+            name: (function_name)
+            (function_args
+              (constant
+                (NUMBER (INTEGER)))
+              (constant
+                (NUMBER (INTEGER))))))))
+    (IMPL)
+    body: (body
+      (rel_atom
+        (predicate_name)
+        (rel_atom_args
+          (variable)
+          (variable))))
+    (DOT)))
+
+==================
+ComparisonPredFloat
+==================
+
+Q(X,Y) :- R(X,Y), X = 1.0, X != 10.0, X < 1.0, X > 1.0, X <= 1.0, X >= 1.0.
+
+---
+
+    (source_file
+      (rule
+        (rel_atom
+          (predicate_name)
+          (rel_atom_args
+            (variable)
+            (variable)))
+        (IMPL)
+        (body
+          (rel_atom
+            (predicate_name)
+            (rel_atom_args
+              (variable)
+              (variable)))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (FLOAT))))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (FLOAT))))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (FLOAT))))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (FLOAT))))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (FLOAT))))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (FLOAT)))))
+        (DOT)))
+
+==================
+ComparisonPredInt
+==================
+
+Q(X,Y) :- R(X,Y), X = 10.
+
+---
+
+    (source_file
+      (rule
+        (rel_atom
+          (predicate_name)
+          (rel_atom_args
+            (variable)
+            (variable)))
+        (IMPL)
+        (body
+          (rel_atom
+            (predicate_name)
+            (rel_atom_args
+              (variable)
+              (variable)))
+          (comparison_atom
+            (variable)
+            (constant
+              (NUMBER (INTEGER)))))
+        (DOT)))
